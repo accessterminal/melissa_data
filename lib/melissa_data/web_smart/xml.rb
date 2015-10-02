@@ -8,7 +8,7 @@ module MelissaData
       end
 
       def children?(xml_node)
-        xml_node.children.empty? 
+        xml_node.children.empty?
       end
 
       def viperize_hash hash
@@ -37,7 +37,7 @@ module MelissaData
       end
 
       def field_details
-        record_node.children.map { |n| n.children }
+        record_node.children.map(&:children)
       end
 
       def build_subdictionary(xml_vals)
@@ -47,9 +47,9 @@ module MelissaData
       end
 
       def expected_fields
-        [ "RecordID", "Result", "Parcel", "PropertyAddress", "ParsedPropertyAddress",
-          "Owner", "OwnerAddress", "Values", "CurrentSale", "CurrentDeed", "PriorSale",
-          "Lot", "SquareFootage", "Building" ].sort
+        [ "Building", "CurrentDeed", "CurrentSale", "Lot", "Owner",
+          "OwnerAddress", "Parcel", "ParsedPropertyAddress", "PriorSale",
+          "PropertyAddress", "RecordID", "Result", "SquareFootage", "Values"]
       end
 
       def expected_fields?(fields)
@@ -61,7 +61,7 @@ module MelissaData
       end
 
       def retrieved_fields
-        record_node.children.map { |n| n.name }
+        record_node.children.map(&:name)
       end
 
       def expected_retrieved?
