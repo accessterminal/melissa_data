@@ -6,8 +6,8 @@ require 'melissa_data/version'
 Gem::Specification.new do |spec|
   spec.name          = "melissa_data"
   spec.version       = MelissaData::VERSION
-  spec.authors       = ["Robert Grayson"]
-  spec.email         = ["bobbygrayson@gmail.com"]
+  spec.authors       = ["Robert Grayson", "Jonah Ruiz"]
+  spec.email         = ["bobbygrayson@gmail.com", "jonah@pixelhipsters.com"]
 
   spec.summary       = %q{A simple interface to Melissa Data's Web Smart Property API}
   spec.description   = %q{A simple interface to Melissa Data's Web Smart Property API}
@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
-  
+
   spec.add_runtime_dependency "nokogiri"
   spec.add_runtime_dependency "rest-client"
 
