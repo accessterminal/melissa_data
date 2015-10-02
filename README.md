@@ -22,14 +22,13 @@ Or install it yourself as:
 
 #### Property
 There is a client included for the property API on Melissa. This requires very little.
-
-You will need an environment variable: `MELISSA_DATA_WEB_SMART_ID`
-
-Once you have this, you may use the following client. To instantiate a client:
+You will need a `MelissaData Web Smart ID`.
+Once you have these, you may use the following client. To instantiate a client:
 
 ```ruby
+irb> MelissaData.web_smart_id = ENV['MELISSA_DATA_WEB_SMART_ID']
 irb> client = MelissaData::WebSmart::Client.new
-irb> client.property(some_fips_code, some_apn) 
+irb> client.property(some_fips_code, some_apn)
 # => property data
 ```
 
@@ -228,6 +227,23 @@ Data comes in the following form:
 }
 ```
 
+## Configuration
+
+There are two ways to configure the gem.
+
+### Block configuration
+
+```ruby
+MelissaData.configure do |config|
+  config.web_smart_id = ENV['MELISSA_DATA_WEB_SMART_ID']
+end
+```
+
+### One-liner
+
+```ruby
+MelissaData.web_smart_id = ENV['MELISSA_DATA_WEB_SMART_ID']
+```
 
 ## Development
 
@@ -243,4 +259,3 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/[USERN
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
