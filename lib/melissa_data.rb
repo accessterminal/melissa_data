@@ -1,17 +1,18 @@
 require "melissa_data/version"
-#require "mellissa_data/web_smart/xml"
-#require "mellissa_data/web_smart/property_api"
-#require "mellissa_data/web_smart/client"
+require "melissa_data/config"
 require 'rest-client'
 require 'nokogiri'
 
 module MelissaData
+  include MelissaData::Config
+
   module WebSmart
     class PropertyAPI
-      def property(fips, apn) 
-        url = 'https://property.melissadata.net/v3/REST/Service.svc/doLookup'
-        resp = RestClient.get(url,
-                             { params: { id: ENV['MELISSA_DATA_WEB_SMART_ID'],
+      API_URL = 'https://property.melissadata.net/v3/REST/Service.svc/doLookup'
+
+      def property(fips, apn)
+        resp = RestClient.get(API_URL,
+                             { params: { id: MelissaData.web_smart_id,
                                          fips: fips,
                                          apn: apn } })
         PropertyXMLParser.new(Nokogiri::XML(resp)).parse
@@ -26,7 +27,7 @@ module MelissaData
       end
 
       def children?(xml_node)
-        xml_node.children.empty? 
+        xml_node.children.empty?
       end
 
       def viperize_hash hash
@@ -55,7 +56,7 @@ module MelissaData
       end
 
       def field_details
-        record_node.children.map { |n| n.children }
+        record_node.children.map(&:children)
       end
 
       def build_subdictionary(xml_vals)
@@ -65,9 +66,9 @@ module MelissaData
       end
 
       def expected_fields
-        [ "RecordID", "Result", "Parcel", "PropertyAddress", "ParsedPropertyAddress",
-          "Owner", "OwnerAddress", "Values", "CurrentSale", "CurrentDeed", "PriorSale",
-          "Lot", "SquareFootage", "Building" ].sort
+        [ "Building", "CurrentDeed", "CurrentSale", "Lot", "Owner",
+          "OwnerAddress", "Parcel", "ParsedPropertyAddress", "PriorSale",
+          "PropertyAddress", "RecordID", "Result", "SquareFootage", "Values"]
       end
 
       def expected_fields?(fields)
@@ -79,7 +80,7 @@ module MelissaData
       end
 
       def retrieved_fields
-        record_node.children.map { |n| n.name }
+        record_node.children.map(&:name)
       end
 
       def expected_retrieved?
