@@ -5,8 +5,7 @@ module MelissaData
   module WebSmart
     class PropertyAPI
       def property(fips, apn) 
-        url = 'https://property.melissadata.net/v3/REST/Service.svc/doLookup'
-        resp = RestClient.get(url,
+        resp = RestClient.get('https://property.melissadata.net/v3/REST/Service.svc/doLookup',
                              { params: { id: ENV['MELISSA_DATA_WEB_SMART_ID'],
                                          fips: fips,
                                          apn: apn } })

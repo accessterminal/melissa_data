@@ -22,8 +22,10 @@ Or install it yourself as:
 
 #### Property
 There is a client included for the property API on Melissa. This requires very little.
-You will need two environment variables: `MELISSA_DATA_WEB_SMART_ID`, and `MELISSA_DATA_PROPERTY_API_URL`
-Once you have these, you may use the following client. To instantiate a client:
+
+You will need an environment variable: `MELISSA_DATA_WEB_SMART_ID`
+
+Once you have this, you may use the following client. To instantiate a client:
 
 ```ruby
 irb> client = MelissaData::WebSmart::Client.new
