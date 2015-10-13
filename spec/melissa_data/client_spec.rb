@@ -14,4 +14,9 @@ describe MelissaData::WebSmart::Client do
       expect(result[key]).to_not eq nil unless key == :record_id
     end
   end
+
+  it "has a meaningful error if improper params are given" do
+    client = MelissaData::WebSmart::Client.new
+    expect(property("12071" )).to raise_error
+  end
 end
