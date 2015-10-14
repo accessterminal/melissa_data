@@ -29,7 +29,7 @@ Once you have these, you may use the following client. To instantiate a client:
 irb> MelissaData.web_smart_id = ENV['MELISSA_DATA_WEB_SMART_ID']
 irb> client = MelissaData::WebSmart::Client.new
 irb> client.property(some_fips_code, some_apn)
-# => property data
+# => your property data
 ```
 
 Data comes in the following form:
