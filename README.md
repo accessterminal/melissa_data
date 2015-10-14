@@ -28,7 +28,10 @@ Once you have these, you may use the following client. To instantiate a client:
 ```ruby
 irb> MelissaData.web_smart_id = ENV['MELISSA_DATA_WEB_SMART_ID']
 irb> client = MelissaData::WebSmart::Client.new
-irb> client.property(some_fips_code, some_apn)
+irb> client.property(fips: some_fips_code, apn: some_apn)
+# => your property data
+# since it uses keyword arguments, order does not matter
+irb> client.property(apn: some_apn, fips: some_fips_code)
 # => your property data
 ```
 
