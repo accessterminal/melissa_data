@@ -28,10 +28,16 @@ Once you have these, you may use the following client. To instantiate a client:
 ```ruby
 irb> MelissaData.web_smart_id = ENV['MELISSA_DATA_WEB_SMART_ID']
 irb> client = MelissaData::WebSmart::Client.new
-irb> client.property(fips: some_fips_code, apn: some_apn)
+irb> client.property_by_apn(fips: some_fips_code, apn: some_apn)
 # => your property data
 # since it uses keyword arguments, order does not matter
-irb> client.property(apn: some_apn, fips: some_fips_code)
+irb> client.property_by_apn(apn: some_apn, fips: some_fips_code)
+# => your property data
+
+# You can also look up an address code and get its `address_key` instead of using
+# an apn and fips code
+irb> key = client.address(address: "158 Thomas Dr", city: "Fremont", state: "Ohio", zip: "43420")[:address_key]
+irb> client.property_by_address_key(key)
 # => your property data
 ```
 
