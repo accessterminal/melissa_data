@@ -26,6 +26,26 @@ module MelissaData
       end
     end
 
+    class AddressXMLParser < XMLParser
+      def parse
+        viperize_hash(Hash[retrieved_fields.zip(field_details)])
+      end
+
+      def field_details
+        xml_children.first.children.last.children.first.children
+        .map(&:children)
+        .map(&:text)
+      end
+
+      def retrieved_fields
+        xml_children.first.children.last.children.first.children.map(&:name)
+      end
+
+      def xml_children
+        xml_document.children
+      end
+    end
+
     class PropertyXMLParser < XMLParser
       def parse
         parsed_hash = {}
