@@ -9,7 +9,7 @@ describe MelissaData::WebSmart::Client do
     expect(result.keys.sort).to eq [:building, :current_deed, :current_sale, :lot,
                                     :owner, :owner_address, :parcel, :parsed_property_address,
                                     :prior_sale, :property_address, :record_id, :result,
-                                    :square_footage, :values]
+                                    :square_footage, :success, :values]
     result.keys.each do |key|
       expect(result[key]).to_not eq nil unless key == :record_id
     end
@@ -27,7 +27,7 @@ describe MelissaData::WebSmart::Client do
     expect(result.keys.sort).to eq [:building, :current_deed, :current_sale, :lot,
                                     :owner, :owner_address, :parcel, :parsed_property_address,
                                     :prior_sale, :property_address, :record_id, :result,
-                                    :square_footage, :values]
+                                    :square_footage, :success, :values]
     result.keys.each do |key|
       expect(result[key]).to_not eq nil unless key == :record_id
     end
