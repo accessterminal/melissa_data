@@ -16,6 +16,23 @@ Or install it yourself as:
 
     $ gem install melissa_data
 
+## Configuration
+
+There are two ways to configure the gem.
+
+### Block configuration
+
+```ruby
+MelissaData.configure do |config|
+  config.web_smart_id = ENV['MELISSA_DATA_WEB_SMART_ID']
+end
+```
+
+### One-liner
+
+```ruby
+MelissaData.web_smart_id = ENV['MELISSA_DATA_WEB_SMART_ID']
+```
 ## Usage
 
 ### Smart Web APIs
@@ -23,6 +40,8 @@ Or install it yourself as:
 #### Property
 There is a client included for the property API on Melissa. This requires very little.
 You will need a `MelissaData Web Smart ID`.
+
+#### Quick Use
 Once you have these, you may use the following client. To instantiate a client:
 
 ```ruby
@@ -41,217 +60,242 @@ irb> client.property_by_address_key(key)
 # => your property data
 ```
 
-Data comes in the following form:
+#### Property Client
 
-```json
-{
-    "record_id": null,
-    "result": {
-        "code": "YS01,YS03,YC01,GS05",
-        "description": "FIPS/APN Match Found. Basic information returned."
-    },
-    "parcel": {
-        "fips_code": "12071",
-        "fips_sub_code": null,
-        "unformatted_apn": null,
-        "apn_sequence_no": null,
-        "formatted_apn": "24-43-24-03-00022.0040",
-        "original_apn": null,
-        "census_tract": null,
-        "zoning": null,
-        "range": null,
-        "township": null,
-        "section": null,
-        "quarter_section": null,
-        "homestead_exempt": null,
-        "absentee_owner_code": null,
-        "land_use_code": null,
-        "county_land_use1": null,
-        "county_land_use2": null,
-        "property_indicator_code": null,
-        "municipality_name": null,
-        "view_code": null,
-        "location_influence_code": null,
-        "number_of_buildings": null
-    },
-    "property_address": {
-        "address": "8351 Bartholomew Dr",
-        "city": "North Fort Myers",
-        "state": "FL",
-        "zip": "33917-1758",
-        "address_key": "33917175851",
-        "latitude": "26.72156",
-        "longitude": "-81.85911"
-    },
-    "parsed_property_address": {
-        "range": "8351",
-        "pre_directional": null,
-        "street_name": "Bartholomew",
-        "suffix": "Dr",
-        "post_directional": null,
-        "suite_name": null,
-        "suite_range": null
-    },
-    "owner": {
-        "corporate_owner": null,
-        "name": "EDWARDS JOHN V",
-        "name2": null,
-        "unparsed_name1": null,
-        "unparsed_name2": null,
-        "phone": null,
-        "phone_opt_out": null
-    },
-    "owner_address": {
-        "address": null,
-        "suite": null,
-        "city": null,
-        "state": null,
-        "zip": null,
-        "carrier_route": null,
-        "matchcode": null,
-        "mail_opt_out": null
-    },
-    "values": {
-        "calculated_total_value": "17300",
-        "calculated_land_value": null,
-        "calculated_improvement_value": null,
-        "calculated_total_value_code": null,
-        "calculated_land_value_code": null,
-        "calculated_improvement_value_code": null,
-        "assessed_total_value": "17300",
-        "assessed_land_value": null,
-        "assessed_improvement_value": null,
-        "market_total_value": null,
-        "market_land_value": null,
-        "market_improvement_value": null,
-        "appraised_total_value": null,
-        "appraised_land_value": null,
-        "appraised_improvement_value": null,
-        "tax_amount": "235.82",
-        "tax_year": null
-    },
-    "current_sale": {
-        "transaction_id": null,
-        "document_year": null,
-        "deed_category_code": null,
-        "recording_date": null,
-        "sale_date": "19920109",
-        "sale_price": "69000",
-        "sale_code": null,
-        "seller_name": null,
-        "multi_apn_code": null,
-        "multi_apn_count": null,
-        "residental_model": null
-    },
-    "current_deed": {
-        "mortgage_amount": "68900",
-        "mortgage_date": null,
-        "mortgage_loan_type_code": null,
-        "mortgage_deed_type_code": null,
-        "mortgage_term_code": null,
-        "mortgage_term": null,
-        "mortgage_due_date": null,
-        "mortgage_assumption_amount": null,
-        "lender_code": null,
-        "lender_name": null,
-        "second_mortgage_amount": null,
-        "second_mortgage_loan_type_code": null,
-        "second_mortgage_deed_type_code": null
-    },
-    "prior_sale": {
-        "transaction_id": null,
-        "document_year": null,
-        "deed_category_code": null,
-        "recording_date": null,
-        "sale_date": null,
-        "sale_price": null,
-        "sale_code": null,
-        "transaction_code": null,
-        "multi_apn_code": null,
-        "multi_apn_count": null,
-        "mortgage_amount": null,
-        "deed_type_code": null
-    },
-    "lot": {
-        "front_footage": null,
-        "depth_footage": null,
-        "acreage": "2.1491",
-        "square_footage": "93615"
-    },
-    "square_footage": {
-        "universal_building": null,
-        "building_area_code": null,
-        "building_area": null,
-        "living_space": null,
-        "ground_floor": null,
-        "gross": null,
-        "adjusted_gross": null,
-        "basement": null,
-        "garage_or_parking": null
-    },
-    "building": {
-        "year_built": null,
-        "effective_year_built": null,
-        "bed_rooms": "0",
-        "total_rooms": "0",
-        "total_baths_calculated": null,
-        "total_baths": "0.00",
-        "full_baths": null,
-        "half_baths": null,
-        "one_quarter_baths": null,
-        "three_quarter_baths": null,
-        "bath_fixtures": null,
-        "air_conditioning_code": null,
-        "basement_code": null,
-        "building_code": null,
-        "improvement_code": null,
-        "condition_code": null,
-        "construction_code": null,
-        "exterior_wall_code": null,
-        "fireplace": null,
-        "fireplaces": null,
-        "fireplace_code": null,
-        "foundation_code": null,
-        "flooring_code": null,
-        "roof_framing_code": null,
-        "garage_code": null,
-        "heating_code": null,
-        "mobile_home": null,
-        "parking_spaces": null,
-        "parking_code": null,
-        "pool": null,
-        "pool_code": null,
-        "quality_code": null,
-        "roof_cover_code": null,
-        "roof_type_code": null,
-        "stories_code": null,
-        "stories": null,
-        "building_style_code": null,
-        "units": null,
-        "electricity_code": null,
-        "fuel_code": null,
-        "sewer_code": null,
-        "water_code": null
-    }
+The following are the main keys returned by the client for a property request:
+
+```
+record_id
+result
+parcel
+property_address
+parsed_property_address
+owner
+owner_address
+values
+current_sale
+current_deed
+prior_sale
+lot
+square_footage
+building
+success
+```
+
+To request a property's information, you must go through one of two processes. In order to request a property
+by address, there are two steps.
+
+Prepare a client
+
+```ruby
+irb> client = MelissaData::WebSmart::Client.new
+```
+
+And next, we call `Client#address` with the keys `address`, `city`, `state`, `zip`, and optionally `country`,
+which defaults to `US` in order to get an address key. If we do not have a `FIPS` and `APN` for the property,
+we must go through this step in order to get the key to pass to the `Client#property` method.
+
+```ruby
+irb. address_key = client.address(address: '158 thomas dr', city: 'fremont', state: 'ohio', zip: '43420')
+```
+
+And now we can call the regular `Client#property` method to get the enriched data for the parcel.
+
+```ruby
+irb> client.property_by_address_key(address_key: address_key)
+# =>
+{:record_id=>nil,
+    :result=>
+    {:code=>"YS01,YS03,YC01,GS05",
+     :description=> "FIPS/APN Match Found. Basic information returned."},
+  :parcel=>
+    {:fips_code=>"12071",
+    :fips_sub_code=>nil,
+    :unformatted_apn=>nil,
+    :apn_sequence_no=>nil,
+    :formatted_apn=>"24-43-24-03-00022.0040",
+    :original_apn=>nil,
+    :census_tract=>nil,
+    :zoning=>nil,
+    :range=>nil,
+    :township=>nil,
+    :section=>nil,
+    :quarter_section=>nil,
+    :homestead_exempt=>nil,
+    :absentee_owner_code=>nil,
+    :land_use_code=>nil,
+    :county_land_use1=>nil,
+    :county_land_use2=>nil,
+    :property_indicator_code=>nil,
+    :municipality_name=>nil,
+    :view_code=>nil,
+    :location_influence_code=>nil,
+    :number_of_buildings=>nil},
+    :property_address=>
+  {:address=>"8351 Bartholomew Dr",
+    :city=>"North Fort Myers",
+    :state=>"FL",
+    :zip=>"33917-1758",
+    :address_key=>"33917175851",
+    :latitude=>"26.72156",
+    :longitude=>"-81.85911"},
+    :parsed_property_address=>
+  {:range=>"8351",
+    :pre_directional=>nil,
+    :street_name=>"Bartholomew",
+   :suffix=>"Dr",
+   :post_directional=>nil,
+   :suite_name=>nil,
+   :suite_range=>nil},
+ :owner=>
+  {:corporate_owner=>nil,
+   :name=>"EDWARDS JOHN V",
+   :name2=>nil,
+   :unparsed_name1=>nil,
+   :unparsed_name2=>nil,
+   :phone=>nil,
+   :phone_opt_out=>nil},
+ :owner_address=>
+  {:address=>nil,
+   :suite=>nil,
+   :city=>nil,
+   :state=>nil,
+   :zip=>nil,
+   :carrier_route=>nil,
+   :matchcode=>nil,
+   :mail_opt_out=>nil},
+ :values=>
+  {:calculated_total_value=>"17300",
+   :calculated_land_value=>nil,
+   :calculated_improvement_value=>nil,
+   :calculated_total_value_code=>nil,
+   :calculated_land_value_code=>nil,
+   :calculated_improvement_value_code=>nil,
+   :assessed_total_value=>"17300",
+   :assessed_land_value=>nil,
+   :assessed_improvement_value=>nil,
+   :market_total_value=>nil,
+   :market_land_value=>nil,
+   :market_improvement_value=>nil,
+   :appraised_total_value=>nil,
+   :appraised_land_value=>nil,
+   :appraised_improvement_value=>nil,
+   :tax_amount=>"235.82",
+   :tax_year=>nil},
+ :current_sale=>
+  {:transaction_id=>nil,
+   :document_year=>nil,
+   :deed_category_code=>nil,
+   :recording_date=>nil,
+   :sale_date=>"19920109",
+   :sale_price=>"69000",
+   :sale_code=>nil,
+   :seller_name=>nil,
+   :multi_apn_code=>nil,
+   :multi_apn_count=>nil,
+   :residental_model=>nil},
+ :current_deed=>
+  {:mortgage_amount=>"68900",
+   :mortgage_date=>nil,
+   :mortgage_loan_type_code=>nil,
+   :mortgage_deed_type_code=>nil,
+   :mortgage_term_code=>nil,
+   :mortgage_term=>nil,
+   :mortgage_due_date=>nil,
+   :mortgage_assumption_amount=>nil,
+   :lender_code=>nil,
+   :lender_name=>nil,
+   :second_mortgage_amount=>nil,
+   :second_mortgage_loan_type_code=>nil,
+   :second_mortgage_deed_type_code=>nil},
+ :prior_sale=>
+  {:transaction_id=>nil,
+   :document_year=>nil,
+   :deed_category_code=>nil,
+   :recording_date=>nil,
+   :sale_date=>nil,
+   :sale_price=>nil,
+   :sale_code=>nil,
+   :transaction_code=>nil,
+   :multi_apn_code=>nil,
+   :multi_apn_count=>nil,
+   :mortgage_amount=>nil,
+   :deed_type_code=>nil},
+ :lot=>
+  {:front_footage=>nil,
+   :depth_footage=>nil,
+   :acreage=>"2.1491",
+   :square_footage=>"93615"},
+ :square_footage=>
+  {:universal_building=>nil,
+   :building_area_code=>nil,
+   :building_area=>nil,
+   :living_space=>nil,
+   :ground_floor=>nil,
+   :gross=>nil,
+   :adjusted_gross=>nil,
+   :basement=>nil,
+   :garage_or_parking=>nil},
+ :building=>
+  {:year_built=>nil,
+   :effective_year_built=>nil,
+   :bed_rooms=>"0",
+   :total_rooms=>"0",
+   :total_baths_calculated=>nil,
+   :total_baths=>"0.00",
+   :full_baths=>nil,
+   :half_baths=>nil,
+   :one_quarter_baths=>nil,
+   :three_quarter_baths=>nil,
+   :bath_fixtures=>nil,
+   :air_conditioning_code=>nil,
+   :basement_code=>nil,
+   :building_code=>nil,
+   :improvement_code=>nil,
+   :condition_code=>nil,
+   :construction_code=>nil,
+   :exterior_wall_code=>nil,
+   :fireplace=>nil,
+   :fireplaces=>nil,
+   :fireplace_code=>nil,
+   :foundation_code=>nil,
+   :flooring_code=>nil,
+   :roof_framing_code=>nil,
+   :garage_code=>nil,
+   :heating_code=>nil,
+   :mobile_home=>nil,
+   :parking_spaces=>nil,
+   :parking_code=>nil,
+   :pool=>nil,
+   :pool_code=>nil,
+   :quality_code=>nil,
+   :roof_cover_code=>nil,
+   :roof_type_code=>nil,
+   :stories_code=>nil,
+   :stories=>nil,
+   :building_style_code=>nil,
+   :units=>nil,
+   :electricity_code=>nil,
+   :fuel_code=>nil,
+   :sewer_code=>nil,
+   :water_code=>nil},
+ :success=>
+  ["FIPS/APN Match found", "Basic information returned"]}
 }
 ```
 
-## Configuration
-
-There are two ways to configure the gem.
-
-### Block configuration
+The alternative method is used if you have a `FIPS` and `APN` available. This is `Client#property_by_apn`.
 
 ```ruby
-MelissaData.configure do |config|
-  config.web_smart_id = ENV['MELISSA_DATA_WEB_SMART_ID']
-end
+irb> client.property_by_apn(apn: 'my_apn', fips: 'my_fips')
+# => see above return format, it is identical
 ```
 
-### One-liner
+There is an `error` key returned in a hash with the reasons for the failure if an error occurs.
+If there is not an error, there is a `success` key added with some basic logging and information such as:
 
-```ruby
-MelissaData.web_smart_id = ENV['MELISSA_DATA_WEB_SMART_ID']
+```
+["FIPS/APN Match found", "Basic information returned"]
 ```
 
 ## Development
