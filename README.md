@@ -1,5 +1,7 @@
 # Melissa Data
 
+[![Build Status](https://travis-ci.org/cometaworks/melissa_data.svg)](https://travis-ci.org/cometaworks/melissa_data)
+
 ## Installation
 
 Add this line to your application's Gemfile:
