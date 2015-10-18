@@ -3,6 +3,7 @@ module MelissaData
     module ResponseProcessor
       def process_property(response)
         codes = codes(response)
+
         if has_error_codes?(codes)
           { errors: codes_for(codes, 'error') }
         else
@@ -15,15 +16,11 @@ module MelissaData
       end
 
       def codes(response)
-        codes = response[:result][:code].split(",")
+        response[:result][:code].split(",")
       end
 
-      def has_error_codes? codes
-        error_codes?(codes)  ? false : true
-      end
-
-      def error_codes?(codes)
-        codes.map { |c| c if property_error_codes.keys.include? c }.compact.empty?
+      def has_error_codes?(codes)
+        !codes.select { |c| c if property_error_codes.keys.include? c.to_sym }.empty?
       end
 
       def property_success_codes
