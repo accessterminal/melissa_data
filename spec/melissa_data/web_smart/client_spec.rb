@@ -46,7 +46,7 @@ describe MelissaData::WebSmart::Client do
      :administrative_area, :postal_code, :address_type, :address_key, :sub_national_area, :country_name,
      :country_iso3166_1_alpha2, :country_iso3166_1_alpha3, :country_iso3166_1_numeric, :thoroughfare,
      :thoroughfare_pre_direction, :thoroughfare_leading_type, :thoroughfare_name, :thoroughfare_trailing_type,
-     :thoroughfare_post_direction, :dependent_thoroughfare, :dependent_thoroughfare_pre_direction, 
+     :thoroughfare_post_direction, :dependent_thoroughfare, :dependent_thoroughfare_pre_direction,
      :dependent_thoroughfare_leading_type, :dependent_thoroughfare_name, :dependent_thoroughfare_trailing_type,
      :dependent_thoroughfare_post_direction, :building, :premises_type, :premises_number, :sub_premises_type,
      :sub_premises_number, :post_box, :latitude, :longitude].each do |key|
@@ -61,5 +61,14 @@ describe MelissaData::WebSmart::Client do
     client = MelissaData::WebSmart::Client.new
     expect { client.property_by_apn(apn: "12071" ) }.to raise_error(ArgumentError, /fips/)
     expect { client.address(city: "gibsonburg" ) }.to raise_error(ArgumentError, /state/)
+  end
+
+  context "when property is used with invalid address_key" do
+    it "returns proper errors instead of response hash" do
+        result = MelissaData::WebSmart::Client.new.
+                 property_by_address_key(address_key: "4342099")
+        expect(result.keys).to eq([:errors])
+        expect(result[:errors]).to be_an(Array)
+    end
   end
 end

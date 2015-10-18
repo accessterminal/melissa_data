@@ -16,7 +16,7 @@ module MelissaData
       end
 
       def address(address:, city:, state:, zip:, country: "USA")
-        resp = @client.address(address: address, city: city, state: state,
+        @client.address(address: address, city: city, state: state,
                         zip: zip, country: country)
       end
     end
