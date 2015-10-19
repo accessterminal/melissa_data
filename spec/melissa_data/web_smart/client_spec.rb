@@ -53,10 +53,10 @@ describe MelissaData::WebSmart::Client do
        :sub_premises_number, :post_box, :latitude, :longitude].each do |key|
         expect(result.keys.include? key).to eq true
       end
-     result.keys.each do |key|
-       expect(result[key]).not_to eq nil
-     end
->>>>>>> master
+
+      result.keys.each do |key|
+        expect(result[key]).not_to eq nil
+      end
     end
   end
 
