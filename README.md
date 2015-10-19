@@ -1,6 +1,7 @@
 # Melissa Data
 
 [![Build Status](https://travis-ci.org/cometaworks/melissa_data.svg)](https://travis-ci.org/cometaworks/melissa_data)
+[![Code Climate](https://codeclimate.com/github/cometaworks/melissa_data/badges/gpa.svg)](https://codeclimate.com/github/cometaworks/melissa_data)
 
 ## Installation
 
