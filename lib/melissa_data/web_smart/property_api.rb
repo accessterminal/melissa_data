@@ -1,5 +1,6 @@
 require 'rest-client'
 require 'nokogiri'
+require 'json'
 
 module MelissaData
   module WebSmart
@@ -22,15 +23,15 @@ module MelissaData
       end
 
       def address(address:, city:, state:, zip:, country:)
-        resp = RestClient.get('https://address.melissadata.net/v3/WEB/GlobalAddress/doGlobalAddress',
-                             { params: { id: MelissaData.web_smart_id,
-                                         a1: address,
-                                         loc: city,
-                                         admarea: state,
-                                         postal: zip,
-                                         ctry: country,
-                                         OptPropertyDetail: "1" } })
-        AddressXMLParser.new(Nokogiri::XML(resp)).parse
+        JSON.parse(RestClient.get('https://address.melissadata.net/v3/WEB/GlobalAddress/doGlobalAddress',
+                                  { params: { id: MelissaData.web_smart_id,
+                                              a1: address,
+                                              loc: city,
+                                              admarea: state,
+                                              postal: zip,
+                                              ctry: country },
+                                    accept: :json,
+                                    content_type: :json }))
       end
     end
   end

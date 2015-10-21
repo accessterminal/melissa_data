@@ -3,7 +3,6 @@ module MelissaData
     module ResponseProcessor
       def process_property(response)
         codes = codes(response)
-
         if has_error_codes?(codes)
           { errors: codes_for(codes, 'error') }
         else
@@ -30,10 +29,10 @@ module MelissaData
           YS04: "Detailed information returned" }
       end
 
-       def property_error_codes
-         { YE01: "No FIPS/APN or AddressKey provided",
-           YE02: "No match found",
-           YE03: "Invalid FIPS/APN or AddressKey provided" }
+      def property_error_codes
+        { YE01: "No FIPS/APN or AddressKey provided",
+          YE02: "No match found",
+          YE03: "Invalid FIPS/APN or AddressKey provided" }
       end
     end
   end
