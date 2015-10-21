@@ -8,14 +8,16 @@ module MelissaData
         resp = RestClient.get('https://property.melissadata.net/v3/REST/Service.svc/doLookup',
                              { params: { id: MelissaData.web_smart_id,
                                          fips: fips,
-                                         apn: apn } })
+                                         apn: apn,
+                                         OptPropertyDetail: "1" } })
         PropertyXMLParser.new(Nokogiri::XML(resp)).parse
       end
 
       def property_by_address_key(address_key:)
         resp = RestClient.get('https://property.melissadata.net/v3/REST/Service.svc/doLookup',
                              { params: { id: MelissaData.web_smart_id,
-                                         AddressKey: address_key } })
+                                         AddressKey: address_key,
+                                         OptPropertyDetail: "1" } })
         PropertyXMLParser.new(Nokogiri::XML(resp)).parse
       end
 
@@ -26,7 +28,8 @@ module MelissaData
                                          loc: city,
                                          admarea: state,
                                          postal: zip,
-                                         ctry: country} })
+                                         ctry: country,
+                                         OptPropertyDetail: "1" } })
         AddressXMLParser.new(Nokogiri::XML(resp)).parse
       end
     end

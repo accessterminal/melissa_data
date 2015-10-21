@@ -66,13 +66,4 @@ describe MelissaData::WebSmart::Client do
       expect { client.address(city: "gibsonburg" ) }.to raise_error(ArgumentError, /state/)
     end
   end
-
-  context "when property is used with invalid address_key" do
-    it "returns proper errors instead of response hash" do
-        result = MelissaData::WebSmart::Client.new.
-                 property_by_address_key(address_key: "4342099")
-        expect(result.keys).to eq([:errors])
-        expect(result[:errors]).to be_an(Array)
-    end
-  end
 end
