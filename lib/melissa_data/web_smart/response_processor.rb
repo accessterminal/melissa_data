@@ -1,39 +1,40 @@
 module MelissaData
   module WebSmart
     module ResponseProcessor
-      def process_property(response)
-        codes = codes(response)
+      require 'yaml'
+      CODE_TYPES = [:property, :address]
 
+      def process(response, resp_type)
+        codes = codes(response, resp_type)
         if has_error_codes?(codes)
-          { errors: codes_for(codes, 'error') }
+          { errors: codes_for(codes, resp_type, 'error') }
         else
-          response.merge!(success: codes_for(codes, 'success'))
+          response.merge!(success: codes_for(codes, resp_type, 'success'))
         end
       end
 
-      def codes_for(codes, type)
-        codes.map { |c| method("property_#{type}_codes").call[c.to_sym] }.compact
+      def codes_for(codes, resp_type, code_type)
+        codes.map do |code|
+          YAML.load(File.read("config/#{resp_type}_#{code_type}_codes.yml")).values.first[code.to_s]
+        end.compact
       end
 
-      def codes(response)
-        response[:result][:code].split(",")
+      def codes(response, resp_type)
+        case resp_type
+        when 'property'
+          response[:result][:code].split(",")
+        when 'address'
+          response[:results].split(",")
+        end
       end
 
       def has_error_codes?(codes)
-        !codes.select { |c| c if property_error_codes.keys.include? c.to_sym }.empty?
+        !codes.select { |code| error_codes.include? code.to_sym }.empty?
       end
 
-      def property_success_codes
-        { YS01: "FIPS/APN Match found",
-          YS02: "AddressKey Match found",
-          YS03: "Basic information returned",
-          YS04: "Detailed information returned" }
-      end
-
-       def property_error_codes
-         { YE01: "No FIPS/APN or AddressKey provided",
-           YE02: "No match found",
-           YE03: "Invalid FIPS/APN or AddressKey provided" }
+      def error_codes
+        error_code_strings = CODE_TYPES.map { |t| File.read("config/#{t}_error_codes.yml") }
+        error_code_strings.map { |c| YAML.load(c) }.flat_map { |code| code.values.first.keys.map(&:to_sym) }
       end
     end
   end

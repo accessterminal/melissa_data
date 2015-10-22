@@ -1,50 +1,41 @@
 require 'spec_helper'
 
 describe MelissaData::WebSmart::ResponseProcessor do
-  let(:client) { MelissaData::WebSmart::Client.new }
-  let(:good_response) { { result: { code: "YS01,YS04" } } }
-  let(:bad_response) { { result: { code: "YE01" } } }
+  let(:client)            { MelissaData::WebSmart::Client.new }
+  let(:property_response) { { result: { code: "YS01,YS03" } } }
+  let(:address_response)  { { results: "AS01" } }
 
-  context "on processing a property" do
-    it "has the property success codes and their meanings" do
-      success_codes = { YS01: "FIPS/APN Match found",
-                YS02: "AddressKey Match found",
-                YS03: "Basic information returned",
-                YS04: "Detailed information returned" }
+  it "can get error codes" do
+    property_codes = client.codes(property_response, 'property')
+    address_codes  = client.codes(address_response, 'address')
+    expect(property_codes).to eq ["YS01", "YS03"]
+    expect(address_codes).to eq ["AS01"]
+  end
 
-      expect(client.property_success_codes).to eq success_codes
+  context "handling success and errors" do
+    it "can handle property success" do
+      property_success_messages = client.codes_for(["YS01"], "property", "success")
+      expect(property_success_messages).to eq ["FIPS/APN Match found"]
     end
 
-    it "has the property error codes and their meanings" do
-      error_codes = { YE01: "No FIPS/APN or AddressKey provided",
-                      YE02: "No match found",
-                      YE03: "Invalid FIPS/APN or AddressKey provided" }
-      expect(client.property_error_codes).to eq error_codes
+    it "can handle address success" do
+      address_success_messages = client.codes_for(["AS01"], "address", "success")
+      expect(address_success_messages).to eq ["Address is valid and deliverable per postal agency guidelines."]
+
     end
 
-    it "can get error codes" do
-      expect(client.codes(good_response)).to eq ["YS01", "YS04"]
+    it "can handle property error" do
+      property_error_messages = client.codes_for(["YE01"], "property", "error")
+      expect(property_error_messages).to eq ["No FIPS/APN or AddressKey provided"]
     end
 
-    it "can properly check for error codes" do
-      codes = client.codes(bad_response)
-      expect(client.has_error_codes?(codes)).to eq true
+    it "can handle address error" do
+      address_error_messages = client.codes_for(["AE01"], "address", "error")
+      expect(address_error_messages).to eq ["Zip/Postal code does not exist or is improperly formatted."]
     end
+  end
 
-    it "can get codes of each type's message (error/success)" do
-      good_codes = client.codes(good_response)
-      bad_codes = client.codes(bad_response)
-      successes = client.codes_for(good_codes, 'success')
-      errors = client.codes_for(bad_codes, 'error')
-      expect(successes).to eq ["FIPS/APN Match found", "Detailed information returned"]
-      expect(errors).to eq  ["No FIPS/APN or AddressKey provided"]
-    end
-
-    it "can process an entire response properly" do
-      good_expected = { :result => { :code => "YS01,YS04" }, :success => ["FIPS/APN Match found", "Detailed information returned"] }
-      bad_expected = { :errors => ["No FIPS/APN or AddressKey provided"] }
-      expect(client.process_property(good_response)).to eq good_expected
-      expect(client.process_property(bad_response)).to eq bad_expected
-    end
+  it "can check if something has error codes" do
+    expect(client.has_error_codes?(["AE01"])).to eq true
   end
 end

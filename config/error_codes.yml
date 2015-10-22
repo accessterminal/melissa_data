@@ -1,0 +1,22 @@
+"property_error_codes":
+    "YS04": "Detailed information returned"
+    "YE01": "No FIPS/APN or AddressKey provided"
+    "YE02": "No match found"
+    "YE03": "Invalid FIPS/APN or AddressKey provided"
+
+"address_error_codes":
+    "AE01": "Zip/Postal code does not exist or is improperly formatted."
+    "AE02": "Unknown Street. Either no match or too many."
+    "AE03": "Component mismatch. Combination of directions + suffix incorrect."
+    "AE04": "Undeliverable address. Plot exists but is not deliverable."
+    "AE05": "Multiple match. This adderss matched too many records to return a result"
+    "AE06": "Early Warning System. This address vant be verified but may be on a new road"
+    "AE07": "Missing minimum address. Must have atleast a1, postal code, and locality"
+    "AE08": "Subpremise number invalid. Suite missing"
+    "AE09": "Subpremise number missing."
+    "AE10": "Premise number invalid"
+    "AE11": "Premise number missing"
+    "AE12": "PO Box number invalid"
+    "AE13": "PO Box number missing"
+    "AE14": "Private mailbox number missing"
+    "AE17": "Sub premise number entered but premise has none"

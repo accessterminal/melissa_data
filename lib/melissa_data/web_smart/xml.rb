@@ -1,16 +1,6 @@
 module MelissaData
   module WebSmart
-    class XMLParser
-      attr_accessor :xml_document
-
-      def initialize(xml)
-        @xml_document = xml
-      end
-
-      def children?(xml_node)
-        xml_node.children.empty?
-      end
-
+    module Formatters
       def viperize_hash hash
         hash.map { |key, value| { viperize(key.to_s) => value } }.reduce(:merge)
       end
@@ -26,27 +16,22 @@ module MelissaData
       end
     end
 
-    class AddressXMLParser < XMLParser
-      def parse
-        viperize_hash(Hash[retrieved_fields.zip(field_details)])
+    class XMLParser
+      include MelissaData::WebSmart::Formatters
+      attr_accessor :xml_document
+
+      def initialize(xml)
+        @xml_document = xml
       end
 
-      def field_details
-        xml_children.first.children.last.children.first.children
-        .map(&:children)
-        .map(&:text)
+      def children?(xml_node)
+        xml_node.children.empty?
       end
 
-      def retrieved_fields
-        xml_children.first.children.last.children.first.children.map(&:name)
-      end
-
-      def xml_children
-        xml_document.children
-      end
     end
 
     class PropertyXMLParser < XMLParser
+      include MelissaData::WebSmart::Formatters
       def parse
         parsed_hash = {}
         if expected_retrieved?
