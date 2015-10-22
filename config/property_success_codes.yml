@@ -1,0 +1,4 @@
+"property_success_codes":
+    "YS01": "FIPS/APN Match found"
+    "YS02": "AddressKey Match found"
+    "YS03": "Basic information returned"

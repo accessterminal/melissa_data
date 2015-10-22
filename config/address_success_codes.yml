@@ -1,0 +1,13 @@
+"address_success_codes":
+   "AS01": "Address is valid and deliverable per postal agency guidelines."
+   "AS02": "Street address verified but suite number not valid or missing."
+   "AS03": "Non-USPS match, exists but may not receive mail."
+   "AS09": "Address is in foreign country."
+   "AS10": "Address is commercial mail receiving agency (PO box, mailbox)."
+   "AS13": "Rural address converted to city-style address."
+   "AS14": "Suite appended. A suite was appended using the address."
+   "AS15": "Apartment appended. An apartment was appended."
+   "AS16": "Vacant. Address unoccupied > 90 days."
+   "AS17": "No mail delivery to address."
+   "AS20": "Deliverable to only via USPS."
+   "AS23": "Unnecessary extraneous information received and discarded."
