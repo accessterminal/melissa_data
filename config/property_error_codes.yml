@@ -1,5 +1,4 @@
 "property_error_codes":
-    "YS04": "Detailed information returned"
     "YE01": "No FIPS/APN or AddressKey provided"
     "YE02": "No match found"
     "YE03": "Invalid FIPS/APN or AddressKey provided"

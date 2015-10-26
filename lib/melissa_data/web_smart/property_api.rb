@@ -10,7 +10,7 @@ module MelissaData
                              { params: { id: MelissaData.web_smart_id,
                                          fips: fips,
                                          apn: apn,
-                                         OptPropertyDetail: "1" } })
+                                         opt: "True" } })
         PropertyXMLParser.new(Nokogiri::XML(resp)).parse
       end
 
@@ -18,7 +18,7 @@ module MelissaData
         resp = RestClient.get('https://property.melissadata.net/v3/REST/Service.svc/doLookup',
                              { params: { id: MelissaData.web_smart_id,
                                          AddressKey: address_key,
-                                         OptPropertyDetail: "1" } })
+                                         opt: "True" } })
         PropertyXMLParser.new(Nokogiri::XML(resp)).parse
       end
 
