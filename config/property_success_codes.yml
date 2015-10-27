@@ -2,3 +2,5 @@
     "YS01": "FIPS/APN Match found"
     "YS02": "AddressKey Match found"
     "YS03": "Basic information returned"
+    "YS04": "Detailed information returned"
+    "YS05": "Multiple matches found"
