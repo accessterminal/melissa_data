@@ -58,8 +58,8 @@ irb> client.property_by_apn(apn: some_apn, fips: some_fips_code)
 
 # You can also look up an address code and get its `address_key` instead of using
 # an apn and fips code
-irb> key = client.address(address: "158 Thomas Dr", city: "Fremont", state: "Ohio", zip: "43420")[:address_key]
-irb> client.property_by_address_key(key)
+irb> key = client.address(address: "508 n mulberry st", city: "clyde", state: "Ohio", zip: "43410")[:address_key]
+irb> client.property_by_address_key(key: key)
 # => your property data
 ```
 
@@ -99,7 +99,7 @@ which defaults to `US` in order to get an address key. If we do not have a `FIPS
 we must go through this step in order to get the key to pass to the `Client#property` method.
 
 ```ruby
-irb. address_key = client.address(address: '158 thomas dr', city: 'fremont', state: 'ohio', zip: '43420')
+irb. address_key = client.address(address: '508 n mulberry st', city: 'clyde', state: 'ohio', zip: '43410')
 ```
 
 And now we can call the regular `Client#property` method to get the enriched data for the parcel.
