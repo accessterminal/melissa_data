@@ -10,7 +10,7 @@ module MelissaData
 
       def property_by_apn(fips:, apn:)
         res = process(@client.property_by_apn(fips: fips, apn: apn), 'property')
-        add_coordinates(res) unless MelissaData::GeoLookup::Geocoder.coordinates? res
+        add_coordinates(res) unless MelissaData::GeoLookup::Geocoder.coordinates? res && !res[:errors]
         res
       end
 
