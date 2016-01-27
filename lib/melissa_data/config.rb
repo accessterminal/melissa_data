@@ -12,12 +12,12 @@ module MelissaData
     #   Usage example:
     #     MelissaData.configure do |config|
     #       config.web_smart_id        = ENV['MELISSA_DATA_WEB_SMART_ID']
-    #       config.google_maps_api_key = ENV['MELISSA_DATA_WEB_SMART_ID']
+    #       config.google_maps_api_key = ENV['GOOGLE_MAPS_API_KEY']
     #     end
     #
     #   Alternate way:
     #     MelissaData.web_smart_id        = ENV['MELISSA_DATA_WEB_SMART_ID']
-    #     MelissaData.google_maps_api_key = ENV['MELISSA_DATA_WEB_SMART_ID']
+    #     MelissaData.google_maps_api_key = ENV['GOOGLE_MAPS_API_KEY']
     #
     # @param <api_key> [String] web smart id to use
     def configure

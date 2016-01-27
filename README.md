@@ -28,6 +28,7 @@ There are two ways to configure the gem.
 ```ruby
 MelissaData.configure do |config|
   config.web_smart_id = ENV['MELISSA_DATA_WEB_SMART_ID']
+  config.google_maps_api_key = ENV["GOOGLE_MAPS_API_KEY"]
 end
 ```
 
@@ -35,6 +36,7 @@ end
 
 ```ruby
 MelissaData.web_smart_id = ENV['MELISSA_DATA_WEB_SMART_ID']
+MelissaData.google_maps_api_key = ENV["GOOGLE_MAPS_API_KEY"]
 ```
 ## Usage
 
