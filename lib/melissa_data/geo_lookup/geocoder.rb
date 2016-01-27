@@ -14,9 +14,18 @@ module MelissaData
       end
 
       def coordinates?(response)
-        lat = response[:property_address][:latitude]
-        long = response[:property_address][:longitude]
-        lat != nil && long != nil
+        if !response[:errors]
+          lat = response.fetch(:property_address)[:latitude]
+          long =response.fetch(:property_address)[:longitude]
+          lat != nil && long != nil
+        else
+          false
+        end
+      end
+
+      def authenticate
+        Geokit::Geocoders::GoogleGeocoder.api_key = MelissaData.google_maps_api_key
+        Geokit::Geocoders::GoogleGeocoder.api_key
       end
 
       def authenticate
