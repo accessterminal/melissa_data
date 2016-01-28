@@ -27,11 +27,6 @@ module MelissaData
         Geokit::Geocoders::GoogleGeocoder.api_key = MelissaData.google_maps_api_key
         Geokit::Geocoders::GoogleGeocoder.api_key
       end
-
-      def authenticate
-        Geokit::Geocoders::GoogleGeocoder.api_key = MelissaData.google_maps_api_key
-        Geokit::Geocoders::GoogleGeocoder.api_key
-      end
     end
   end
 end
