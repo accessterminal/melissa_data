@@ -6,7 +6,7 @@ module MelissaData
   module WebSmart
     class PropertyAPI
       def property_by_apn(fips:, apn:)
-        resp = RestClient.get('https://property.melissadata.net/v3/REST/Service.svc/doLookup',
+        resp = RestClient.get('https://property.melissadata.net/v3/REST/Service.svc/doLookup/',
                              { params: { id: MelissaData.web_smart_id,
                                          fips: fips,
                                          apn: apn,
@@ -15,7 +15,7 @@ module MelissaData
       end
 
       def property_by_address_key(address_key:)
-        resp = RestClient.get('https://property.melissadata.net/v3/REST/Service.svc/doLookup',
+        resp = RestClient.get('https://property.melissadata.net/v3/REST/Service.svc/doLookup/',
                              { params: { id: MelissaData.web_smart_id,
                                          AddressKey: address_key,
                                          opt: "True" } })
