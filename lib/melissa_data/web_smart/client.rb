@@ -9,15 +9,23 @@ module MelissaData
       end
 
       def property_by_apn(fips:, apn:)
-        res = process(@client.property_by_apn(fips: fips, apn: apn), 'property')
-        add_coordinates(res) unless MelissaData::GeoLookup::Geocoder.coordinates? res
-        res
+        @response = process(@client.property_by_apn(fips: fips, apn: apn), 'property')
+        resolve_response
       end
 
       def property_by_address_key(address_key:)
-        res = process(@client.property_by_address_key(address_key: address_key), 'property')
-        add_coordinates(res) unless MelissaData::GeoLookup::Geocoder.coordinates? res
-        res
+        @response = process(@client.property_by_address_key(address_key: address_key), 'property')
+        resolve_response
+      end
+
+      def success?
+        !@response.key?(:errors)
+      end
+
+      def resolve_response
+        return @response unless success?
+        add_coordinates(@response) unless MelissaData::GeoLookup::Geocoder.coordinates? @response
+        @response
       end
 
       def address(address:, city:, state:, zip:, country: "USA")
@@ -30,10 +38,10 @@ module MelissaData
       end
 
       def add_coordinates(response)
-        addr  = response[:property_address][:address]
-        city  = response[:property_address][:city]
-        state = response[:property_address][:state]
-        zip   = response[:property_address][:zip]
+        addr  = response.dig(:property_address, :address)
+        city  = response.dig(:property_address, :city)
+        state = response.dig(:property_address, :state)
+        zip   = response.dig(:property_address, :zip)
         full_address = "#{addr}, #{city}, #{state}, #{zip}"
         MelissaData::GeoLookup::Geocoder
           .address_to_coordinates(full_address)
