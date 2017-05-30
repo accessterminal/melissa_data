@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{A simple interface to Melissa Data's Web Smart Property API}
   spec.description   = %q{A simple interface to Melissa Data's Web Smart Property API}
-  spec.homepage      = "http://github.com/cometaworks/melissa_data"
+  spec.homepage      = "https://github.com/accessterminal/melissa_data"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
