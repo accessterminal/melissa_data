@@ -7,7 +7,10 @@ module MelissaData
       def process(response, resp_type)
         codes = codes(response, resp_type)
         if has_error_codes?(codes)
-          { errors: codes_for(codes, resp_type, 'error') }
+          {
+            errors: codes_for(codes, resp_type, 'error'),
+            error_codes: map_codes_for(codes, resp_type, 'error')
+          }
         else
           response.merge!(success: codes_for(codes, resp_type, 'success'))
         end
@@ -16,6 +19,12 @@ module MelissaData
       def codes_for(codes, resp_type, code_type)
         codes.map do |code|
           YAML.load(File.read("config/#{resp_type}_#{code_type}_codes.yml")).values.first[code.to_s]
+        end.compact
+      end
+
+      def map_codes_for(codes, resp_type, code_type)
+        codes.each_with_object([]) do |code, res|
+          res << { code: code.to_s, description: YAML.load(File.read("config/#{resp_type}_#{code_type}_codes.yml")).values.first[code.to_s] }
         end.compact
       end
 

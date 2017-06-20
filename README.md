@@ -61,7 +61,7 @@ irb> client.property_by_apn(apn: some_apn, fips: some_fips_code)
 # You can also look up an address code and get its `address_key` instead of using
 # an apn and fips code
 irb> key = client.address(address: "508 n mulberry st", city: "clyde", state: "Ohio", zip: "43410")[:address_key]
-irb> client.property_by_address_key(key: key)
+irb> client.property_by_address_key(address_key: key)
 # => your property data
 ```
 
