@@ -4,12 +4,15 @@ describe MelissaData::WebSmart::ResponseProcessor do
   let(:client)            { MelissaData::WebSmart::Client.new }
   let(:property_response) { { result: { code: "YS01,YS03" } } }
   let(:address_response)  { { results: "AS01" } }
+  let(:address_error_response)  { { results: "AC01,AC03,AS01" } }
 
   it "can get error codes" do
     property_codes = client.codes(property_response, 'property')
     address_codes  = client.codes(address_response, 'address')
+    address_error_codes  = client.codes(address_error_response, 'address')
     expect(property_codes).to eq ["YS01", "YS03"]
     expect(address_codes).to eq ["AS01"]
+    expect(address_error_codes).to eq ["AC01", "AC03", "AS01"]
   end
 
   context "handling success and errors" do

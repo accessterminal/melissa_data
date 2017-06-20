@@ -50,5 +50,11 @@ describe MelissaData::WebSmart::Client do
       expect { client.property_by_apn(apn: '12071' ) }.to raise_error(ArgumentError, /fips/)
       expect { client.property_by_address_key() }.to raise_error(ArgumentError, /address/)
     end
+
+    it 'has meaningful errors if no data is found' do
+      res = client.address(address: "ry st", city: "clde", state: "Oio", zip: "441")
+      expect(res.dig(:error_codes).first.keys).to include(:code, :description)
+      expect(res.dig(:error_codes)).to be_an(Array)
+    end
   end
 end
