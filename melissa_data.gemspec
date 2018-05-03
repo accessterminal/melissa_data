@@ -20,7 +20,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.required_ruby_version = '>= 2.3'
 
-  spec.add_runtime_dependency "nokogiri"
   spec.add_runtime_dependency "rest-client"
   spec.add_runtime_dependency "geokit"
 
