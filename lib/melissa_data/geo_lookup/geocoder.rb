@@ -14,7 +14,7 @@ module MelissaData
       end
 
       def coordinates?(response)
-        if !response[:errors]
+        if !response[:errors] && !response[:property_address]&.empty?
           lat = response.fetch(:property_address)[:latitude]
           long =response.fetch(:property_address)[:longitude]
           lat != nil && long != nil
