@@ -24,7 +24,7 @@ module MelissaData
 
       def resolve_response
         return @response unless success?
-        add_coordinates(@response) unless MelissaData::GeoLookup::Geocoder.coordinates? @response
+        add_coordinates(@response[:records].first) unless MelissaData::GeoLookup::Geocoder.coordinates? @response[:records].first
         @response
       end
 
@@ -42,9 +42,11 @@ module MelissaData
         city  = response.dig(:property_address, :city)
         state = response.dig(:property_address, :state)
         zip   = response.dig(:property_address, :zip)
-        full_address = "#{addr}, #{city}, #{state}, #{zip}"
-        MelissaData::GeoLookup::Geocoder
-          .address_to_coordinates(full_address)
+
+        if addr && city && state && zip
+          full_address = "#{addr}, #{city}, #{state}, #{zip}"
+          MelissaData::GeoLookup::Geocoder.address_to_coordinates(full_address)
+        end
       end
     end
   end
