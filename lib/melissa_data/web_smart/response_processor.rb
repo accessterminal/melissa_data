@@ -31,9 +31,9 @@ module MelissaData
       def codes(response, resp_type)
         case resp_type
         when 'property'
-          response[:result][:code].split(",")
+          response[:records].first[:results].split(',')
         when 'address'
-          response[:results].split(",")
+          response[:records].first[:results].split(',')
         end
       end
 
