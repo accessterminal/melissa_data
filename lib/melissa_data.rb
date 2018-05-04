@@ -7,7 +7,6 @@ require "melissa_data/web_smart/property_api"
 require "melissa_data/config"
 require "melissa_data/geo_lookup/geocoder"
 
-require 'rest-client'
 require 'geokit'
 
 module MelissaData
