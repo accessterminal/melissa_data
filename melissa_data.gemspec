@@ -20,9 +20,10 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.required_ruby_version = '>= 2.3'
 
-  spec.add_runtime_dependency "rest-client"
   spec.add_runtime_dependency "geokit"
   spec.add_runtime_dependency "activesupport"
+  spec.add_runtime_dependency 'faraday', '~> 0.15.0'
+  spec.add_runtime_dependency 'typhoeus', '~> 1.3.0'
 
   spec.add_development_dependency "bundler", "~> 1.10"
   spec.add_development_dependency "rake", "~> 10.0"
