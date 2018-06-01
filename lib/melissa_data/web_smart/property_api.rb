@@ -27,6 +27,8 @@ module MelissaData
           id: MelissaData.web_smart_id,
           fips: fips,
           apn: apn,
+          cols: 'GrpAll',
+          addressKey: nil,
           format: 'json'
         }
 
