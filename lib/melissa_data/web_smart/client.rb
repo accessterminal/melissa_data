@@ -28,6 +28,11 @@ module MelissaData
         @response
       end
 
+      def property_by_address(address:)
+        @response = process(@client.property_by_address(address: address), 'property')
+        resolve_response
+      end
+
       def address(address:, city:, state:, zip:, country: "USA")
         resp = viperize_hash(@client.address(address: address,
                                              city: city,

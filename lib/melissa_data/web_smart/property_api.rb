@@ -39,7 +39,21 @@ module MelissaData
       def property_by_address_key(address_key:)
         raw = default_connection(BASE_URL).get '/v4/WEB/LookupProperty/', {
           id: MelissaData.web_smart_id,
-          AddressKey: address_key,
+          addressKey: address_key,
+          cols: 'GrpAll',
+          format: 'json'
+        }
+
+        res = JSON.parse(raw.body).deep_transform_keys(&:underscore)
+        res&.with_indifferent_access
+      end
+
+      def property_by_address(address:)
+        raw = default_connection(BASE_URL).get '/v4/WEB/LookupProperty/', {
+          id: MelissaData.web_smart_id,
+          ff: address,
+          cols: 'GrpAll',
+          addressKey: nil,
           format: 'json'
         }
 
